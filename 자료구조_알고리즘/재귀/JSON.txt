@@ -1,0 +1,32 @@
+JSON ( JavaScript Object Notation )
+
+데이터 교환을 위해 만들어진 객체 형태의 포맷
+데이터 전송 가능 조건 
+- 발신자와 수신자 모두 같은 프로그램 사용
+- 범용적으로 읽을 수 있는 형태(ex: 문자열)
+
+인텔리젱에서 타입 변환을 통해 String으로 변환 시 객체 내용을 포함하지 않는다, 
+A.toString( ) 
+:  JSON과 형식이 다르므로 Java를 사용하지 않는 프로그램에서는 데이터 파악 불가 
+
+-> 객체를 JSON 형태로 변환 or JSON을 객체의 형태로 변환 가능
+
+
+- jackson 라이브러리에서 제공하는 ObjectMapper클래스를 사용하여 JSON형태로 변경 
+
+Map<String, Character> score = new HashMap<>(){{
+      put("김민수", "A");
+      put("박철수", "A");
+      put("김코딩", "C");
+      put("임자바", "F");
+    }};
+
+ObjectMapper mapper = new ObjectMapper();
+String json = mapper.writeValueAsString(score);   //직렬화 
+System.out.println(json);
+
+
+- JSON으로 변환된 객체의 타입은 문자열, 이를 다시 객체의 형태로 변환 
+
+String json = "{\"김민수\":\"A\",\"박철수\":\"A\",\"김코딩\":\"C\",\"임자바\":\"F\"}";
+Map<String, String> deserializedData = mapper.readValue(json, Map.class);
