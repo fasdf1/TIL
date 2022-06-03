@@ -1,0 +1,8 @@
+정규표현식
+: 문자열에서 특정한 규칙에 따른 문자열 집합을 표현하기 위해 사용
+ 정규표현식에서 특수 문자는 각각의 고유한 규칙을 가진다. 
+ 이러한 규칙의 조합을 통해 패턴을 만들고 특정 문자열에서 패턴과 대응하는 문자를 찾는다. 
+
+-> Pattern.matches( regExp, str) 
+
+참고: https://www.regexplanet.com/advanced/java/index.html
