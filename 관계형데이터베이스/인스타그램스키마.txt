@@ -1,0 +1,63 @@
+인스타그램 스키마
+: https://ssunw.tistory.com/m/entry/%EA%B0%84%EB%8B%A8%ED%95%9C-%EC%9D%B8%EC%8A%A4%ED%83%80%EA%B7%B8%EB%9E%A8-%EC%8A%A4%ED%82%A4%EB%A7%88-%EC%83%9D%EC%84%B1
+
+create database ig_clone;
+
+use ig_clone;
+
+create table users (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+create table photos (
+  id INTEGER AUTO_INCREMENT PRIMARY KEY,
+  image_url VARCHAR(255) NOT NULL,
+  user_id INTEGER NOT NULL ,
+  created_at TIMESTAMP DEFAULT NOW(),
+  FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+create table comments(
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    comment_text VARCHAR(255) NOT NULL,
+    user_id INTEGER NOT NULL ,
+    photo_id INTEGER NOT NULL ,
+    created_at TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY(user_id) REFERENCES users(id),
+    FOREIGN KEY(photo_id) REFERENCES photos(id)
+);
+
+create table likes(
+    user_id INTEGER NOT NULL,
+    photo_id INTEGER NOT NULL,
+    created_at timestamp default now(),
+    foreign key (user_id) references users(id),
+    foreign key (photo_id) references photos(id),
+    primary key(user_id, photo_id)
+);
+
+create table follows(
+    
+    follower_id INTEGER NOT NULL,
+   
+    followee_id INTEGER NOT NULL,
+    created_at timestamp default now(),
+    foreign key (follower_id) references users(id),
+    foreign key (followee_id) references users(id),
+    primary key (follower_id, followee_id)
+);
+create table tags (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    tag_name VARCHAR(255) UNIQUE,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+create table photo_tags(
+    photo_id INTEGER NOT NULL,
+    tag_id INTEGER NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    foreign key (tag_id) references tags(id),
+    foreign key (photo_id) references photos(id),
+    primary key (photo_id, tag_id)
+);
